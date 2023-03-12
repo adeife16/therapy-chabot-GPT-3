@@ -1,0 +1,24 @@
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #222a4f;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(34,42,79,0.5), rgba(51,15,87,0.5));
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(34,42,79,0.5), rgba(51,15,87,0.5))
+  }
+  .mask-custom {
+    backdrop-filter: blur(9px);
+    background-color: rgba(34,42,79,0.5);
+}
+.user-msg{
+    backdrop-filter: blur(8px);
+    background-color: rgba(204,229,255,0.4);
+    color: rgba(225, 225, 225, 1);
+}
+.bot-msg{
+    backdrop-filter: blur(8px);
+    background-color: rgba(226,227,229,0.4);
+    color: rgba(225, 225, 225, 1);
+  }

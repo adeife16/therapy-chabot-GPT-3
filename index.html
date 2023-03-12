@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Interface</title>
+  <link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="gradient-custom">
+  <div class="container mt-5">
+    <h1 class="text-center">AI Therapy Chatbot</h1>
+    <div class="card mask mask-custom">
+      <div class="card-header">
+        <h5 class="card-title">Chat Interface</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div id="chat" class="chat"></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-10">
+            <input type="text" id="message" class="form-control mask-custom" placeholder="Type your message...">
+          </div>
+          <div class="col-md-2">
+            <button id="send" class="btn btn-primary btn-block">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/jquery.min.js"></script>
+  <script src="assets/popper.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      // Set up event handler for send button
+      $('#send').click(function() {
+        const message = $('#message').val();
+        sendMessage(message);
+        $('#message').val('');
+      });
+    });
+
+    function sendMessage(message) {
+    const chat = $('#chat');
+    // Add user message to chat window
+    const userMessage = $('<div class="row"><div class="col-md-10"><div class="alert user-msg" role="alert">' + message + '</div></div></div>');
+    chat.append(userMessage);
+
+    // Send message to server
+    $.ajax({
+        url: 'http://localhost:5000/ask',
+        type: 'POST',
+        data: JSON.stringify({ prompt: message }),
+        dataType: 'json',
+        contentType: 'application/json',
+        crossDomain: true,
+        headers: {
+        'Access-Control-Allow-Origin': 'http://localhost',
+        'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS'
+        },
+        success: function(response) {
+        // Add chatbot response to chat window
+        console.log(response)
+        const chatbotMessage = $('<div class="row"><div class="col-md-10 offset-md-2"><div class="alert bot-msg" role="alert">' + response.message + '</div></div></div>');
+        chat.append(chatbotMessage);
+        }
+    });
+}
+
+  </script>
+</body>
+</html>
